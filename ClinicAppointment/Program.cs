@@ -1,4 +1,6 @@
 using ClinicAppointment.Data.Dbcontext;
+using ClinicAppointment.Service.IServices;
+using ClinicAppointment.Service.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,8 @@ builder.Services.AddDbContext<ClinicAppointmentDbcontext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
 b => b.MigrationsAssembly(typeof(ClinicAppointmentDbcontext).Assembly.FullName))
 );
+
+builder.Services.AddScoped<IDoctorService,DoctorService>();
 // CORS
 builder.Services.AddCors(options =>
 {

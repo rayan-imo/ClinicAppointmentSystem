@@ -1,16 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ClinicAppointment.Data.Models
+namespace ClinicAppointment.Service.Dtos
 {
-    public class Department
+    public class DepartmentDto
     {
-        public Guid Id { get; set; }
         [Required]
         public string Name { get; set; }
+        [Required]
         public string Floor { get; set; }
         public string? Description { get; set; }
-        public DateTime? DeletedAt { get; set; }
-        public List<Doctor> Doctors { get; set; }
-
     }
 }

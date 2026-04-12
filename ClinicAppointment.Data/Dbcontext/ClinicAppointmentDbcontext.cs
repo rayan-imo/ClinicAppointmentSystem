@@ -15,7 +15,7 @@ namespace ClinicAppointment.Data.Dbcontext
                   .HasIndex(d => d.Email).IsUnique();
 
             modelBuilder.Entity<Patient>()
-                 .HasIndex(p=>p.phone).IsUnique();
+                 .HasIndex(p=>p.Phone).IsUnique();
 
             modelBuilder.Entity<Department>()
             .HasIndex(d=>d.Name).IsUnique();

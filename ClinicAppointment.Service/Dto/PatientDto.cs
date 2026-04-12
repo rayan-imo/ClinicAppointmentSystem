@@ -1,17 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ClinicAppointment.Data.Models
+namespace ClinicAppointment.Service.Dtos
 {
-    public class Patient
+    public class PatientDto
     {
-        public Guid Id { get; set; }
         public string FullName { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public DateTime? DeletedAt {  get; set; }
         [Required]
         public string Phone { get; set; }
         [EmailAddress]
         public string Email { get; set; }
-        public List<Appointment> Appointments { get; set; }
     }
 }

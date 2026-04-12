@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.25">
@@ -17,11 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ClinicAppointment.Data\ClinicAppointment.Data.csproj" />
+    <ProjectReference Include="..\ClinicAppointment.Service\ClinicAppointment.Service.csproj" />
   </ItemGroup>
 
 </Project>
