@@ -33,13 +33,13 @@ namespace ClinicAppointment.Controllers
             return Ok(doctors);
         }
         [HttpPost]
-        public async Task<ActionResult<DoctorDto>> AddAsync(DoctorDto dto)
+        public async Task<ActionResult<DoctorDtos>> AddAsync(DoctorDto dto)
         {
             var doctor = await _doctorService.AddAsync(dto);
             return Ok(doctor);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<DoctorDto>> UpdateAsync(Guid id, DoctorDto dto)
+        public async Task<ActionResult<DoctorDtos>> UpdateAsync(Guid id, DoctorDto dto)
         { 
             var doctorId = await _doctorService.UpdateAsync(id, dto);
             if (doctorId == Guid.Empty)

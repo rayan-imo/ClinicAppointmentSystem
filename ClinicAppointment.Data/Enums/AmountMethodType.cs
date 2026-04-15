@@ -1,6 +1,6 @@
 ﻿namespace ClinicAppointment.Data.Enums
 {
-    public enum AmountMethod
+    public enum AmountMethodType
     {
         CreditCard,
         Cash

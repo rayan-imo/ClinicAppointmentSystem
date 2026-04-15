@@ -24,15 +24,15 @@ namespace ClinicAppointment.Service.Services
             if (id == Guid.Empty)
                 throw new ArgumentException("Invalid department ID.", nameof(id));
 
-            var department = await _context.Departments.FirstOrDefaultAsync(d => d.Id == id);
+            var payments = await _context.Departments.FirstOrDefaultAsync(d => d.Id == id);
 
-            if (department == null)
-                throw new KeyNotFoundException($"Department with ID '{id}' was not found.");
+            if (payments == null)
+                throw new KeyNotFoundException($"Payment with ID '{id}' was not found.");
 
-            if (department.DeletedAt is not null)
-                throw new InvalidOperationException($"Department with ID '{id}' was deleted on {department.DeletedAt}.");
+            if (payments.DeletedAt is not null)
+                throw new InvalidOperationException($"Payment with ID '{id}' was deleted on {payments.DeletedAt}.");
 
-            return department;
+            return payments;
         }
         public async Task<Guid> AddAsync(DepartmentDto dto)
         {

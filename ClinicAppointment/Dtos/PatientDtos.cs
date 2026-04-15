@@ -1,17 +1,14 @@
-﻿using ClinicAppointment.Data.Common;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace ClinicAppointment.Data.Models
+namespace ClinicAppointment.Dtos
 {
-    public class Patient:BaseEntity
+    public class PatientDtos
     {
         public string FullName { get; set; }
         public DateTime DateOfBirth { get; set; }
-
         [Required]
         public string Phone { get; set; }
         [EmailAddress]
         public string Email { get; set; }
-        public List<Appointment> Appointments { get; set; }
     }
 }

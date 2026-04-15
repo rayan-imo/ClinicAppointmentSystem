@@ -1,10 +1,10 @@
-﻿using ClinicAppointment.Data.Enums;
+﻿using ClinicAppointment.Data.Common;
+using ClinicAppointment.Data.Enums;
 
 namespace ClinicAppointment.Data.Models
 {
-    public class Appointment
+    public class Appointment:BaseEntity
     {
-        public Guid Id { get; set; }
         public DateTime AppointmentDate { get; set; }
         public AppointmentStatus Status { get; set; }
         public string Notes { get; set; }
