@@ -66,6 +66,7 @@ namespace ClinicAppointment.Controllers
             await _appointmentService.HardDeleteAsync(id);
             return Ok();
         }
+        [HttpGet("patient/{id}")]
         public async Task<ActionResult<AppointmentDtos>>GetAppointmentWithPatientId(Guid id)
         {
             var patientId = await _patientService.GetByIdAsync(id);
@@ -75,6 +76,7 @@ namespace ClinicAppointment.Controllers
            var result= await _appointmentService.GetAppointmentWithPatientId(id);
             return Ok(result);
         }
+        [HttpGet("doctor/{id}")]
         public async Task<ActionResult<AppointmentDtos>> GetAppointmentWithDoctorId(Guid id)
         {
             var doctorId = await _doctorService.GetByIdAsync(id);
