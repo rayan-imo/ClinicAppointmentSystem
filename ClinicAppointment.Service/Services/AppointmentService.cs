@@ -10,7 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClinicAppointment.Service.Services
 {
-    public class AppointmentService(ClinicAppointmentDbcontext _context) : IAppointmentService
+    public class AppointmentService(ClinicAppointmentDbcontext _context,
+        IDoctorService _doctorService, IPatientService _patientService) : IAppointmentService
     {
         public async Task<PagedResult<Appointment>> GetAllAsync(PaginationParameter pagination)
         {
@@ -36,6 +37,18 @@ namespace ClinicAppointment.Service.Services
         }
         public async Task<Guid> AddAsync(AppointmentDto dto)
         {
+            var doctorId = await _doctorService.GetByIdAsync(dto.DoctorId);
+            if (doctorId == null)
+            {
+                throw new KeyNotFoundException($"Appointment with ID '{doctorId}' was not found.");
+
+            }
+            var patientId = await _patientService.GetByIdAsync(dto.PatientId);
+            if (patientId == null)
+            {
+                throw new KeyNotFoundException($"Appointment with ID '{patientId}' was not found.");
+
+            }
             var confilct = await _context.Appointments.AnyAsync(
              a => a.DoctorId == dto.DoctorId &&
              a.AppointmentDate == dto.AppointmentDate &&
@@ -47,10 +60,10 @@ namespace ClinicAppointment.Service.Services
 
             }
 
-            if (dto.AppointmentDate < DateTime.UtcNow)
-            {
-                throw new InvalidOperationException("Can not bookin the past");
-            }
+            //if (dto.AppointmentDate < DateTime.UtcNow)
+            //{
+            //    throw new InvalidOperationException("Can not bookin the past");
+            //}
 
             var appointment = new Appointment
             {
@@ -116,7 +129,7 @@ namespace ClinicAppointment.Service.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Appointment> GetAppointmentWithPatientId(Guid id)
+        public async Task<Appointment> GetAppointmentWithDoctortId(Guid id)
         {
             if (id == Guid.Empty)
                 throw new ArgumentException("Invalid doctor ID.", nameof(id));
@@ -125,10 +138,12 @@ namespace ClinicAppointment.Service.Services
 
             if (doctor == null)
                 throw new KeyNotFoundException($"Doctor with ID '{id}' was not found.");
-            var appointment = await _context.Appointments.Include(a => a.DoctorId).FirstOrDefaultAsync();
+            var appointment = await _context.Appointments.Include(x => x.Doctor)
+                .FirstOrDefaultAsync(x => x.DoctorId == id);
+
             return appointment;
         }
-        public async Task<Appointment> GetAppointmentWithDoctorId(Guid id)
+        public async Task<Appointment> GetAppointmentWithPatientId(Guid id)
         {
             if (id == Guid.Empty)
                 throw new ArgumentException("Invalid patient ID.", nameof(id));
@@ -138,7 +153,8 @@ namespace ClinicAppointment.Service.Services
             if (patient == null)
                 throw new KeyNotFoundException($"Doctor with ID '{id}' was not found.");
 
-            var appointment = await _context.Appointments.Include(a => a.PatientId).FirstOrDefaultAsync();
+            var appointment = await _context.Appointments.Include(x => x.Patient)
+                .FirstOrDefaultAsync(x=>x.PatientId==id);
             return appointment;
 
         }

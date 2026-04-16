@@ -13,6 +13,6 @@ namespace ClinicAppointment.Service.IServices
         public Task SoftDeleteAsync(Guid id);
         public Task HardDeleteAsync(Guid id);
         public Task<Appointment> GetAppointmentWithPatientId(Guid id);
-        public Task<Appointment> GetAppointmentWithDoctorId(Guid id);
+        public Task<Appointment> GetAppointmentWithDoctortId(Guid id);
     }
 }

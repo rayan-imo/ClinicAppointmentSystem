@@ -2,12 +2,12 @@
 {
     public static class PaginationHelper
     {
-        public static async Task<PagedResult<T>> ToPagedAsync<T>(List<T> list, int? pageNumber, int? pageSize)
+        public static async Task<PagedResult<T>> ToPagedAsync<T>(List<T> list, int pageNumber=1,int pageSize = 10)
         {
             var query = list.AsQueryable();
             int total = query.Count();
-            int page = pageNumber ?? 1;
-            int size = pageSize ?? (total == 0 ? 1 : total);
+            int page = pageNumber ;
+            int size = pageSize ;
             var items = query.Skip((page - 1) * size)
                 .Take(size)
                 .ToList();

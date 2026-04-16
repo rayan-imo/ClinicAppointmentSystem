@@ -2,6 +2,7 @@ using ClinicAppointment.Data.Dbcontext;
 using ClinicAppointment.Service.IServices;
 using ClinicAppointment.Service.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,10 @@ b => b.MigrationsAssembly(typeof(ClinicAppointmentDbcontext).Assembly.FullName))
 );
 
 builder.Services.AddScoped<IDoctorService,DoctorService>();
+builder.Services.AddScoped<IDepartmentService,DepartmentService>();
+builder.Services.AddScoped<IAppointmentService,AppointmentService>();
+builder.Services.AddScoped<IPatientService,PatientService>();
+builder.Services.AddScoped<IPaymentService,PaymentService>();
 // CORS
 builder.Services.AddCors(options =>
 {
@@ -29,6 +34,12 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader();
     });
 });
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler =
+            ReferenceHandler.IgnoreCycles;
+    });
 var app = builder.Build();
 
 app.UseSwagger();

@@ -67,11 +67,11 @@ namespace ClinicAppointment.Controllers
             return Ok();
         }
         [HttpGet("patient/{id}")]
-        public async Task<ActionResult<AppointmentDtos>>GetAppointmentWithPatientId(Guid id)
+        public async Task<ActionResult<List<AppointmentDtos>>>GetAppointmentWithPatientId(Guid id)
         {
             var patientId = await _patientService.GetByIdAsync(id);
             if (patientId == null)
-                return NotFound($"Patient with ID {patientId} not found");
+                return NotFound($"Patient with ID {id} not found");
 
            var result= await _appointmentService.GetAppointmentWithPatientId(id);
             return Ok(result);
@@ -83,7 +83,7 @@ namespace ClinicAppointment.Controllers
             if (doctorId == null)
                 return NotFound($"Doctor with ID {doctorId} not found");
 
-            var result = await _appointmentService.GetAppointmentWithDoctorId(id);
+            var result = await _appointmentService.GetAppointmentWithDoctortId(id);
             return Ok(result);
 
         }
