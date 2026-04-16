@@ -39,9 +39,13 @@ namespace ClinicAppointment.Service.Services
             {
                 throw new KeyNotFoundException($"Appointment was not found.");
             }
-            if (appointment.Status != AppointmentStatus.Completed)
+            if (appointment.Status != 0)
             {
                 throw new KeyNotFoundException($"Appointment  not completed");
+            }
+            if (dto.Amount <= 0)
+            {
+                throw new KeyNotFoundException($"Amount must be more than 0");
             }
             var payment = new Payment
             {

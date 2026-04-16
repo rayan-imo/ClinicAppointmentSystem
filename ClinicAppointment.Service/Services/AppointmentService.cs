@@ -129,7 +129,7 @@ namespace ClinicAppointment.Service.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Appointment> GetAppointmentWithDoctortId(Guid id)
+        public async Task<List<Appointment>> GetAppointmentWithDoctortId(Guid id)
         {
             if (id == Guid.Empty)
                 throw new ArgumentException("Invalid doctor ID.", nameof(id));
@@ -139,11 +139,11 @@ namespace ClinicAppointment.Service.Services
             if (doctor == null)
                 throw new KeyNotFoundException($"Doctor with ID '{id}' was not found.");
             var appointment = await _context.Appointments.Include(x => x.Doctor)
-                .FirstOrDefaultAsync(x => x.DoctorId == id);
+                .Where(x => x.DoctorId == id).ToListAsync();
 
             return appointment;
         }
-        public async Task<Appointment> GetAppointmentWithPatientId(Guid id)
+        public async Task<List<Appointment>> GetAppointmentWithPatientId(Guid id)
         {
             if (id == Guid.Empty)
                 throw new ArgumentException("Invalid patient ID.", nameof(id));
@@ -154,7 +154,7 @@ namespace ClinicAppointment.Service.Services
                 throw new KeyNotFoundException($"Doctor with ID '{id}' was not found.");
 
             var appointment = await _context.Appointments.Include(x => x.Patient)
-                .FirstOrDefaultAsync(x=>x.PatientId==id);
+                .Where(x=>x.PatientId==id).ToListAsync();
             return appointment;
 
         }

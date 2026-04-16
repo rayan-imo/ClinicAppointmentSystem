@@ -12,7 +12,7 @@ namespace ClinicAppointment.Service.IServices
         public Task<Guid> UpdateAsync(Guid id, AppointmentDto dto);
         public Task SoftDeleteAsync(Guid id);
         public Task HardDeleteAsync(Guid id);
-        public Task<Appointment> GetAppointmentWithPatientId(Guid id);
-        public Task<Appointment> GetAppointmentWithDoctortId(Guid id);
+        public Task<List<Appointment>> GetAppointmentWithPatientId(Guid id);
+        public Task<List<Appointment>> GetAppointmentWithDoctortId(Guid id);
     }
 }
