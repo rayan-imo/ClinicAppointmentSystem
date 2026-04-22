@@ -23,6 +23,7 @@ builder.Services.AddScoped<IDepartmentService,DepartmentService>();
 builder.Services.AddScoped<IAppointmentService,AppointmentService>();
 builder.Services.AddScoped<IPatientService,PatientService>();
 builder.Services.AddScoped<IPaymentService,PaymentService>();
+builder.Services.AddScoped<IImageService,ImageService>();
 // CORS
 builder.Services.AddCors(options =>
 {
